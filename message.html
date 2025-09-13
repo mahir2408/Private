@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Letters for You 💌</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* --- Basic layout & fonts --- */
+    body {
+      font-family: 'Poppins', sans-serif;
+      /* New, elegant font for UI */
+      margin: 0;
+      background-color: #e8e4d9;
+      /* A warm, beige background */
+      color: #333;
+      overflow-y: scroll;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.5s ease;
+    }
+
+    /* New unlocked body styles */
+    .unlocked-body {
+      /* Subtle gradient for the unlocked state, matching the new palette */
+      background: linear-gradient(-45deg, #f5f0e1, #d6c6a4, #f5f0e1);
+      background-size: 400% 400%;
+      animation: subtleGradient 15s ease infinite;
+    }
+
+    @keyframes subtleGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #6c5a4a, #4a3e35);
+      /* Warm brown gradient */
+      color: white;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-family: 'Poppins', sans-serif;
+      /* Consistent font for header */
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #d4c9b9;
+      /* A light brown for nav */
+      padding: 0.8rem;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      padding: 0.65rem 1.2rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 700;
+      background-color: #4a3e35;
+      /* Dark brown button color */
+      color: white;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      font-family: 'Poppins', sans-serif;
+      /* Consistent font for buttons */
+    }
+
+    nav button:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    nav button:active {
+      transform: translateY(-1px);
+    }
+
+    /* --- Grid and envelope --- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1200px;
+      margin: 1rem auto;
+    }
+
+    .envelope {
+      position: relative;
+      width: 160px;
+      height: 120px;
+      background: linear-gradient(180deg, #f5f0e1, #e8e4d9);
+      /* Paper-like gradient */
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      /* Changed to column to stack elements */
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0.8rem;
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.3s ease;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .envelope .title-text {
+      font-family: 'Dancing Script', cursive;
+      /* Script font for the title */
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .envelope .date-text {
+      font-family: 'Poppins', sans-serif;
+      /* Clean font for the date */
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    .envelope:hover {
+      transform: translateY(-8px) rotate(-2deg) scale(1.05);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    /* little flip animation when opening */
+    .envelope.flip {
+      animation: flipOpen 0.5s forwards;
+    }
+
+    @keyframes flipOpen {
+      0% {
+        transform: rotateX(0deg);
+      }
+
+      100% {
+        transform: rotateX(20deg) translateY(-8px) scale(1.05);
+      }
+    }
+
+    /* --- Letter (story page) --- */
+    .letter {
+      display: block;
+      padding: 2.5rem 2.8rem;
+      background: #f7efe1;
+      border-radius: 16px;
+      max-width: 800px;
+      margin: 2rem auto;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e0/Texture_old_paper.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: relative;
+      color: #222;
+    }
+
+    /* Updated font for the letter title */
+    .letter h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      /* Adjusted for date */
+    }
+
+    /* New rule for the body of the letter */
+    .letter p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.8rem;
+    }
+
+    .letter .date-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 1.5rem;
+      display: block;
+      /* Ensures it's on a new line */
+    }
+
+    .delete-btn,
+    .back-btn {
+      position: absolute;
+      top: 15px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Poppins', sans-serif;
+      /* Consistent font for buttons */
+    }
+
+    .delete-btn {
+      right: 15px;
+      background: rgba(168, 70, 70, 0.95);
+      /* A muted red */
+      color: #fff;
+    }
+
+    .back-btn {
+      left: 15px;
+      background: rgba(74, 62, 53, 0.95);
+      /* Dark brown */
+      color: #fff;
+    }
+
+    .delete-btn:hover,
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* --- Small form styles --- */
+    .form-box {
+      display: none;
+      max-width: 700px;
+      margin: 1.5rem auto;
+      background: rgba(245, 240, 225, 0.9);
+      /* Lighter, semi-transparent beige */
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-box input,
+    .form-box textarea {
+      width: 100%;
+      margin: 0.6rem 0;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid #d4c9b9;
+      /* Matches nav background */
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      /* Consistent font for inputs */
+    }
+
+    .controls-row {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .controls-row button,
+    .form-box button {
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      border: none;
+      background: #4a3e35;
+      /* Dark brown button color */
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Poppins', sans-serif;
+      /* Consistent font for buttons */
+    }
+
+    .controls-row button:hover,
+    .form-box button:hover {
+      transform: scale(1.05);
+    }
+
+    /* --- Lock screen animation (cute hearts) --- */
+    #password-screen {
+      position: relative;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -10px;
+      opacity: 0.85;
+      animation: rise 6s linear infinite;
+      transform: scale(0.9);
+    }
+
+    .heart:nth-child(1) {
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .heart:nth-child(2) {
+      left: 30%;
+      animation-delay: 1s;
+    }
+
+    .heart:nth-child(3) {
+      left: 50%;
+      animation-delay: 2s;
+    }
+
+    .heart:nth-child(4) {
+      left: 70%;
+      animation-delay: 3s;
+    }
+
+    .heart:nth-child(5) {
+      left: 90%;
+      animation-delay: 4s;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(0.85);
+        opacity: 0.6
+      }
+
+      50% {
+        opacity: 1
+      }
+
+      100% {
+        transform: translateY(-120vh) scale(1.1);
+        opacity: 0
+      }
+    }
+
+    /* Custom delete confirmation modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .modal-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.visible .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-buttons {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .modal-buttons button {
+      padding: 0.6rem 1.5rem;
+      border-radius: 20px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .modal-buttons .confirm-btn {
+      background-color: #e53e3e;
+      color: white;
+    }
+
+    .modal-buttons .confirm-btn:hover {
+      background-color: #c53030;
+      transform: translateY(-2px);
+    }
+
+    .modal-buttons .cancel-btn {
+      background-color: #e2e8f0;
+      color: #4a5568;
+    }
+
+    .modal-buttons .cancel-btn:hover {
+      background-color: #cbd5e0;
+      transform: translateY(-2px);
+    }
+
+    /* responsive tweaks */
+    @media (max-width:600px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        padding: 0.8rem;
+      }
+
+      .envelope {
+        width: 120px;
+        height: 95px;
+        font-size: 0.9rem;
+      }
+
+      .letter {
+        padding: 1.5rem;
+        font-size: 1rem;
+        line-height: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- cute hearts -->
+  <svg class="heart" width="40" height="40" viewBox="0 0 24 24" fill="#6c5a4a" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M12 21s-7-4.35-9-6.67C-0.03 8.45 6.2 3 9.5 6.5 11 8 12 9 12 9s1-1 2.5-2.5C17.8 3 24 8.45 21 14.33 19 16.65 12 21 12 21z" />
+  </svg>
+  <svg class="heart" width="28" height="28" viewBox="0 0 24 24" fill="#a4937a" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M12 21s-7-4.35-9-6.67C-0.03 8.45 6.2 3 9.5 6.5 11 8 12 9 12 9s1-1 2.5-2.5C17.8 3 24 8.45 21 14.33 19 16.65 12 21 12 21z" />
+  </svg>
+  <svg class="heart" width="36" height="36" viewBox="0 0 24 24" fill="#8c7865" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M12 21s-7-4.35-9-6.67C-0.03 8.45 6.2 3 9.5 6.5 11 8 12 9 12 9s1-1 2.5-2.5C17.8 3 24 8.45 21 14.33 19 16.65 12 21 12 21z" />
+  </svg>
+
+  <!-- LOCK SCREEN -->
+  <div id="password-screen"
+    style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;">
+    <div style="text-align:center;max-width:380px;margin:0 1rem;">
+      <h2 style="margin:0 0 0.8rem 0; font-family: 'Poppins', sans-serif;">The key to my thoughts belongs to only one
+        person…</h2>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+        <input type="password" id="password" placeholder="Password"
+          style="padding:0.8rem;border-radius:10px;border:1px solid #d4c9b9;width:100%;box-sizing:border-box; font-family: 'Poppins', sans-serif;">
+        <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem;">
+          <input type="checkbox" id="show-password-toggle" onclick="togglePasswordVisibility()">
+          <label for="show-password-toggle" style="font-family: 'Poppins', sans-serif;">Show Password</label>
+        </div>
+      </div>
+      <div style="display:flex;gap:0.8rem;justify-content:center;margin-top:1rem;">
+        <button onclick="checkPassword()"
+          style="padding:0.65rem 1.2rem;border-radius:10px;border:none;background:#4a3e35;color:white;font-weight:700; font-family: 'Poppins', sans-serif;">Unlock</button>
+      </div>
+      <p id="error" style="color:crimson;display:none;margin-top:0.8rem; font-family: 'Poppins', sans-serif;">Wrong
+        password, try again.</p>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="main-content" style="display:none;">
+    <header>The Corners of My Mind, Wrapped in Words 📜</header>
+
+    <nav>
+      <button onclick="showSection('letters')">Letters</button>
+      <button onclick="showSection('messages')">Messages</button>
+      <button onclick="showSection('openwhen')">Open When</button>
+    </nav>
+
+    <!-- LETTERS -->
+    <div id="letters-section">
+      <div class="controls-row">
+        <button onclick="toggleForm('letters')">➕ Add Letter</button>
+      </div>
+      <form id="add-letters-form" class="form-box" onsubmit="addItem(event, 'letters')">
+        <input type="text" id="letters-title" placeholder="Letter title (date or mood)" required />
+        <input type="date" id="letters-date" required />
+        <textarea id="letters-content" rows="5" placeholder="Write your letter here..." required></textarea>
+        <div style="text-align:center;"><button type="submit"
+            style="padding:0.6rem 1rem;border-radius:10px;border:none;background:#4a3e35;color:white;font-weight:700;">Add
+            Letter</button></div>
+      </form>
+      <div class="grid" id="letters-grid"></div>
+      <div id="letters-container"></div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div id="messages-section" style="display:none;">
+      <div class="controls-row">
+        <button onclick="toggleForm('messages')">➕ Add Message</button>
+      </div>
+      <form id="add-messages-form" class="form-box" onsubmit="addItem(event, 'messages')">
+        <input type="text" id="messages-title" placeholder="Message title" required />
+        <textarea id="messages-content" rows="4" placeholder="Write your message here..." required></textarea>
+        <div style="text-align:center;"><button type="submit"
+            style="padding:0.6rem 1rem;border-radius:10px;border:none;background:#4a3e35;color:white;font-weight:700;">Add
+            Message</button></div>
+      </form>
+      <div class="grid" id="messages-grid"></div>
+      <div id="messages-container"></div>
+    </div>
+
+    <!-- OPEN WHEN -->
+    <div id="openwhen-section" style="display:none;">
+      <div class="controls-row">
+        <button onclick="toggleForm('openwhen')">➕ Add 'Open When'</button>
+      </div>
+      <form id="add-openwhen-form" class="form-box" onsubmit="addItem(event, 'openwhen')">
+        <input type="text" id="openwhen-title" placeholder="'Open when...' occasion" required />
+        <textarea id="openwhen-content" rows="4" placeholder="Write your message here..." required></textarea>
+        <div style="text-align:center;"><button type="submit"
+            style="padding:0.6rem 1rem;border-radius:10px;border:none;background:#4a3e35;color:white;font-weight:700;">Add</button>
+        </div>
+      </form>
+      <div class="grid" id="openwhen-grid"></div>
+      <div id="openwhen-container"></div>
+    </div>
+  </div>
+
+  <!-- Custom Delete Confirmation Modal -->
+  <div id="delete-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Are you sure?</h3>
+      <p>This will permanently delete the letter. This action cannot be undone.</p>
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="hideDeleteConfirmation()">Cancel</button>
+        <button class="confirm-btn" id="confirm-delete-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- IMPORTANT: CHANGE THIS PASSWORD ---
+    const secretPassword = "MyLittleWeirdo";
+
+    // --- Default Data ---
+    const defaultLetters = [
+      {
+        title: "The First One 💌",
+        date: "2025-09-13",
+        content: "This is the very first letter I wrote for you. It's here to greet you whenever you unlock this page."
+      },
+      {
+        title: "Lazy Sunday",
+        date: "2025-09-10",
+        content: "Imagine we're sitting on a couch, drinking coffee, and laughing about random things..."
+      },
+      {
+        title: "Shobit Randi",
+        date: "2025-09-10",
+        content: "Imagine we're sitting on a couch, drinking coffee, and laughing about random things..."
+      },
+    ];
+
+    const defaultMessages = [
+      {
+        title: "Just a Thought",
+        content: "You're on my mind today. That's all. ❤️"
+      }
+    ];
+
+    const defaultOpenWhen = [
+      {
+        title: "Open when you miss me",
+        content: "Remember that I'm probably missing you too. Take a deep breath. I love you."
+      }
+    ];
+
+    // --- Initialize Data if Empty ---
+    function initializeData() {
+      if (!localStorage.getItem("letters")) {
+        localStorage.setItem("letters", JSON.stringify(defaultLetters));
+      }
+      if (!localStorage.getItem("messages")) {
+        localStorage.setItem("messages", JSON.stringify(defaultMessages));
+      }
+      if (!localStorage.getItem("openwhen")) {
+        localStorage.setItem("openwhen", JSON.stringify(defaultOpenWhen));
+      }
+    }
+
+    initializeData();
+
+    // --- Core Functions ---
+    function checkPassword() {
+      const inputPassword = document.getElementById("password").value;
+      const errorElement = document.getElementById("error");
+      const passwordScreen = document.getElementById("password-screen");
+      const mainContent = document.getElementById("main-content");
+
+      if (inputPassword === secretPassword) {
+        passwordScreen.style.display = "none";
+        mainContent.style.display = "block";
+        document.body.classList.add('unlocked-body'); // Add the new class
+        showSection('letters'); // Default section
+      } else {
+        errorElement.style.display = "block";
+      }
+    }
+
+    // New function to toggle password visibility
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById("password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    }
+
+    function getItems(section) {
+      const items = localStorage.getItem(section);
+      return items ? JSON.parse(items) : [];
+    }
+
+    function saveItems(section, items) {
+      localStorage.setItem(section, JSON.stringify(items));
+    }
+
+    function showSection(sectionId) {
+      const sections = ['letters', 'messages', 'openwhen'];
+      sections.forEach(id => {
+        document.getElementById(`${id}-section`).style.display = 'none';
+        document.getElementById(`${id}-container`).innerHTML = ''; // Clear letter view
+      });
+      document.getElementById(`${sectionId}-section`).style.display = 'block';
+      renderEnvelopes(sectionId);
+    }
+
+    function toggleForm(section) {
+      const form = document.getElementById(`add-${section}-form`);
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function addItem(event, section) {
+      event.preventDefault();
+      const titleInput = document.getElementById(`${section}-title`);
+      const dateInput = document.getElementById(`${section}-date`);
+      const contentInput = document.getElementById(`${section}-content`);
+
+      const newItem = {
+        title: titleInput.value,
+        date: dateInput.value, // Save the new date
+        content: contentInput.value
+      };
+
+
+      const items = getItems(section);
+      items.push(newItem);
+      saveItems(section, items);
+
+      titleInput.value = "";
+      dateInput.value = ""; // Clear the date input
+      contentInput.value = "";
+      toggleForm(section);
+      renderEnvelopes(section);
+    }
+
+    function showLetter(section, index) {
+      const items = getItems(section);
+      const item = items[index];
+      const letterContainer = document.getElementById(`${section}-container`);
+
+      // Hide the grid and controls before displaying the letter
+      document.getElementById(`${section}-grid`).style.display = 'none';
+      document.querySelector(`#${section}-section .controls-row`).style.display = 'none';
+
+      letterContainer.innerHTML = `
+      <div class="letter">
+        <button class="back-btn" onclick="showSection('${section}')">Back</button>
+        <button class="delete-btn" onclick="showDeleteConfirmation('${section}', ${index})">Delete</button>
+        <h2>${item.title}</h2>
+        <span class="date-text">${item.date}</span>
+        <p>${item.content.replace(/\n/g, "<br>")}</p>
+      </div>
+    `;
+      letterContainer.style.display = 'block';
+    }
+
+    // New function to display the custom confirmation modal
+    function showDeleteConfirmation(section, index) {
+      const modal = document.getElementById('delete-modal');
+      modal.classList.add('visible');
+
+      // Set up the click handler for the confirm button
+      const confirmBtn = document.getElementById('confirm-delete-btn');
+      confirmBtn.onclick = () => {
+        confirmDelete(section, index);
+        hideDeleteConfirmation();
+      };
+    }
+
+    // New function to hide the custom confirmation modal
+    function hideDeleteConfirmation() {
+      const modal = document.getElementById('delete-modal');
+      modal.classList.remove('visible');
+    }
+
+    // New function that actually performs the deletion
+    function confirmDelete(section, index) {
+      const items = getItems(section);
+      items.splice(index, 1);
+      saveItems(section, items);
+      document.getElementById(`${section}-container`).innerHTML = ""; // Hide the letter
+      showSection(section);
+    }
+
+
+    function renderEnvelopes(section) {
+      const items = getItems(section);
+      const grid = document.getElementById(`${section}-grid`);
+      grid.innerHTML = "";
+
+      document.getElementById(`${section}-grid`).style.display = 'grid';
+      document.querySelector(`#${section}-section .controls-row`).style.display = 'flex';
+
+      items.forEach((item, index) => {
+        const envelope = document.createElement("div");
+        envelope.className = "envelope";
+        envelope.innerHTML = `
+        <span class="title-text">${item.title}</span>
+        ${item.date ? `<span class="date-text">${item.date}</span>` : ''}
+      `;
+        envelope.onclick = () => {
+          envelope.classList.add('flip');
+          setTimeout(() => showLetter(section, index), 500); // Wait for the animation
+        };
+        grid.appendChild(envelope);
+      });
+    }
+
+    const dataVersion = "v2";
+
+      localStorage.setItem("letters", JSON.stringify(defaultLetters));
+      localStorage.setItem("messages", JSON.stringify(defaultMessages));
+      localStorage.setItem("openwhen", JSON.stringify(defaultOpenWhen));
+  </script>
+</body>
+
+</html>
